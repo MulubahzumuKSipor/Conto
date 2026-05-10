@@ -16,3 +16,25 @@ Below is the JSON response from `GET /pizza` confirming the third record was suc
   { "id": 2, "name": "Veggie", "isGlutenFree": true },
   { "id": 3, "name": "The .NET Meat-Lover", "isGlutenFree": false }
 ]
+
+
+using System.Text;
+using System.Collections.Generic;
+
+public static string GenerateSalesSummary(IEnumerable<(string FileName, decimal Total)> fileDetails, decimal aggregateTotal)
+{
+    StringBuilder sb = new StringBuilder();
+
+    sb.AppendLine("Sales Summary");
+    sb.AppendLine("----------------------------");
+    sb.AppendLine($" Total Sales: {aggregateTotal:C}");
+    sb.AppendLine();
+    sb.AppendLine(" Details:");
+
+    foreach (var file in fileDetails)
+    {
+        sb.AppendLine($"  {file.FileName}: {file.Total:C}");
+    }
+
+    return sb.ToString();
+}
